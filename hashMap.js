@@ -41,6 +41,18 @@ class HashMap {
             current.next = {key, value, next:null};
             this.size++;
         }
+
+        if (this.size / this.capacity > this.loadFactor) {
+            const currentEntries = this.entries();
+            
+            this.capacity *= 2;
+            this.buckets = new Array(this.capacity).fill(null);
+            this.size = 0; 
+
+            currentEntries.forEach(([key, value]) => {
+                this.set(key, value);
+            });
+        }
     }
 
     get(key) {
@@ -186,6 +198,24 @@ console.log(myMap.size);
 console.log(myMap.remove('apple'));
 console.log(myMap.remove('cucumber'));
 
+myMap.set('lion', 'brown');
+
 console.log(myMap.keys());
 console.log(myMap.values());
 console.log(myMap.entries());
+
+
+console.log('--- Growth Test ---');
+console.log('Start Capacity:', myMap.capacity); 
+console.log('Start Size:', myMap.size);
+
+myMap.set('monkey', 'brown');
+myMap.set('node', 'js');
+myMap.set('odin', 'project');
+myMap.set('postgresql', 'db'); 
+
+console.log('New Capacity:', myMap.capacity); 
+console.log('New Size:', myMap.size);
+
+console.log('Verify "lion":', myMap.get('lion')); 
+console.log('Verify "postgresql":', myMap.get('postgresql'));
