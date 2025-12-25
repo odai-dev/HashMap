@@ -145,6 +145,21 @@ class HashMap {
         
         return values;       
     }
+
+    entries() {
+        let entries = [];
+        this.buckets.forEach(bucket => {
+            if(bucket) {
+                let current = bucket;
+                while(current) {
+                    entries.push([current.key, current.value]);
+                    current = current.next;
+                }
+            }
+        })
+        
+        return entries;       
+    }
 }
 
 const myMap = new HashMap();
@@ -173,3 +188,4 @@ console.log(myMap.remove('cucumber'));
 
 console.log(myMap.keys());
 console.log(myMap.values());
+console.log(myMap.entries());
