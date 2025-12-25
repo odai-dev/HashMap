@@ -115,11 +115,35 @@ class HashMap {
         this.buckets = new Array(this.capacity).fill(null);
         this.size = 0;
     }
+
+    keys() {
+        let keys = [];
+        this.buckets.forEach(bucket => {
+            if(bucket) {
+                let current = bucket;
+                while(current) {
+                    keys.push(current.key);
+                    current = current.next;
+                }
+            }
+        })
+        
+        return keys;
+    }
 }
 
 const myMap = new HashMap();
 myMap.set('apple', 'red');
 myMap.set('banana', 'yellow');
+
+myMap.set('elephant', 'gray')
+myMap.set('frog', 'green')
+myMap.set('grape', 'purple')
+myMap.set('hat', 'black')
+myMap.set('ice cream', 'white')
+myMap.set('jacket', 'blue')
+myMap.set('kite', 'pink')
+myMap.set('lion', 'golden')
 
 console.log(myMap.get('apple')); 
 console.log(myMap.has('banana')); 
@@ -131,3 +155,5 @@ console.log(myMap.get('apple'));
 console.log(myMap.size); 
 console.log(myMap.remove('apple'));
 console.log(myMap.remove('cucumber'));
+
+console.log(myMap.keys());
